@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}All Users{% endblock %}
+{% block body %}
+    
+ <table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">UserName</th>
+      <th scope="col">Email</th>
+      <th scope="col">Profile</th>
+      <th scope="col">Edit</th>
+      <th scope="col">Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for row in rows %}
+    
+     <tr class="table-primary">
+       <td>{{ row["id"] }}</td>
+       <td>{{ row["username"] }}</td>
+       <td>{{ row["email"] }}</td>
+       <td>
+        <a href="{{ url_for('profile_user', id = row.id )}}">Profile</a>
+       </td>
+       <!-- <td>
+        <a href="{{ url_for('edit_user', id = row.id )}}">Edit</a>
+       </td> -->
+       <td>
+        <a href="{{ url_for('delete_user', id = row.id )}}">Delete</a>
+       </td>
+     </tr>
+    
+    {% endfor %}
+  </tbody>
+</table>    
+    
+    
+
+{% endblock %} 

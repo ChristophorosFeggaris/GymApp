@@ -8,12 +8,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- <link rel="stylesheet" href="static/bootstrap.min.css">  -->
         <link rel="stylesheet" href="{{url_for('static',filename='css/bootstrap.css')}}">
+        <link rel="icon" href="/static/images/barbell.png">
   </head>
   <body>
   
   
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <a class="navbar-brand" href="{{ url_for('index') }}">Gym</a>
+    <a class="navbar-brand" href="{{ url_for('index') }}"><img class="logo" src="/static/images/barbell.png"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation" onclick="myFunction()">
       <span class="navbar-toggler-icon" ></span>
     </button>
@@ -31,13 +32,16 @@
           <a class="nav-link" href="{{ url_for('list_clients') }}">All_Clients</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('list_users') }}">All_Users</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
         </li>
          
-        <form class="form-inline my-2 my-lg-0" style="position:absolute; right: 25px;" method="GET" action="search" >
+        <!-- <form class="form-inline my-2 my-lg-0" style="position:absolute; right: 25px;" method="GET" action="search" >
           <input class="form-control mr-sm-2" type="text"  placeholder="Search" id ="searchBar"  aria-label="Search">
           <button class="btn btn-secondary my-2 my-sm-0"  type="submit">Search</button>
-        </form>
+        </form> -->
          
         {% else %}
       
@@ -50,6 +54,15 @@
 
         {% endif %}
       </ul>
+
+      <style>
+        .logo{
+          text-align: center;
+          width:50px;
+          height: 50px;
+          margin-left: 25px;
+        }
+      </style>
       
       <script>
         function myFunction() {

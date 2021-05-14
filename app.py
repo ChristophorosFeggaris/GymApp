@@ -202,13 +202,28 @@ def list_clients():
     Clients = Client.query.all()
     return render_template('list_clients.html', rows=Clients)
 
+# LIST OF USERS
+@app.route('/list_users')
+@login_required
+def list_users():
+    Users = User.query.all()
+    return render_template('list_users.html', rows = Users)
+
 # PROFILE CLIENT
-@app.route('/profile/<id>')
+@app.route('/profile_client/<id>')
 @login_required
 def profile_client(id):
     client=Client.query.filter_by(id=id).first_or_404()
     db.session.commit()
     return render_template('profile_client.html', client=client, id=id)
+
+# PROFILE USER
+@app.route('/profile_user/<id>')
+@login_required
+def profile_user(id):
+    user = User.query.filter_by(id=id).first_or_404()
+    db.session.commit()
+    return render_template('profile_user.html', user=user, id=id)
 
 # RELOAD SUBSCRIBE
 @app.route('/reload_subscribe/<id>', methods=['GET','POST'])
@@ -290,6 +305,15 @@ def delete_client(id):
     db.session.delete(delete)
     db.session.commit()
     return redirect(url_for('list_clients'))
+
+# DELETE USER
+@app.route('/delete_user/<id>', methods=['GET', 'POST'])
+@login_required
+def delete_user(id):
+    delete = User.query.filter_by(id=id).first_or_404()
+    db.session.delete(delete)
+    db.session.commit()
+    return redirect(url_for('list_users'))
     
 
 # LOGOUT USER
