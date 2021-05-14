@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}Profile{% endblock %}
+{% block body %}
+    
+    {% with messages = get_flashed_messages(category_filter=["success"]) %}
+    {% if messages %}
+        {% for message in messages %}
+                <p><strong>{{message}}</strong></p>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    {% with messages = get_flashed_messages(category_filter=["error"]) %}
+    {% if messages %}
+        {% for message in messages %}
+                <p><strong>{{message}}</strong></p>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    <table>
+        <tr valign="top">
+            <td><h1>{{client.first_name }} {{client.last_name}}</h1></td>
+        </tr>
+    </table> 
+       
+    Email: &ensp; {{client.email}}
+    <hr noshade="noshade" align="left" width="20%">
+    Gender:&ensp; {{client.gender}} 
+    <hr noshade="noshade" align="left" width="20%">
+    Date of birth: &ensp; {{client.date_of_birth}} 
+    <hr noshade="noshade" align="left" width="20%">
+    Address: &ensp; {{client.address}} 
+    <hr noshade="noshade" align="left" width="20%">
+    Phone number: &ensp; {{client.phone_number}}  
+    <br><a href="{{ url_for('reload_sub', id=id) }}">Reload a new subscribe</a>
+    <p><a href="{{ url_for('edit_client', id=id) }}">Edit client</a></p>
+    
+    
+
+{% endblock %}

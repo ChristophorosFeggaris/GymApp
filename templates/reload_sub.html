@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}Reload Subscription{% endblock %}
+{% block body %}
+
+    <form class="form-signin" action="{{ url_for('reload_sub', id=id) }}" method="POST">
+        {{ form.hidden_tag() }}
+        {{ wtf.form_field(form.sub) }}
+        {{ wtf.form_field(form.start_date) }}
+        {{ wtf.form_field(form.end_date) }}
+        <p>{{ id }}</p>
+        <button class="btn btn-md btn-primary btn-block" type="submit">Submit</button>
+    </form>
+
+{% endblock %}

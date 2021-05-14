@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}Sign up now{% endblock %}
+{% block body %}
+    
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          {% for message in messages %}
+            <p><strong>{{message}}</strong></p>
+          {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <form class="form-signin" action="/register" method='POST'>
+    <h2 class="form-signin-heading">Sign up to get in buddy:</h2>
+      {{ form.hidden_tag() }}
+      {{ wtf.form_field(form.username) }}
+      {{ wtf.form_field(form.email) }}
+      {{ wtf.form_field(form.password) }}
+      {{ wtf.form_field(form.confirm) }}
+      <button class="btn btn-md btn-primary btn-block" type="submit">Sign Up</button>
+    </form>
+   <p><strong>You already have an acount ?</strong> <a href="{{url_for('login')}}" class="alert-link">Login</a> to enter members area</p>
+    
+
+{% endblock %}

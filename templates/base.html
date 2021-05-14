@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>{% block title %}{% endblock %}</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- <link rel="stylesheet" href="static/bootstrap.min.css">  -->
+        <link rel="stylesheet" href="{{url_for('static',filename='css/bootstrap.css')}}">
+  </head>
+  <body>
+  
+  
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="{{ url_for('index') }}">Gym</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation" onclick="myFunction()">
+      <span class="navbar-toggler-icon" ></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarColor01">
+      <ul class="navbar-nav mr-auto" >
+        {% if current_user.is_authenticated %}
+        <li class="nav-item active">
+          <a class="nav-link" href="{{ url_for('index') }}">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('new_client') }}">New client</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('list_clients') }}">All_Clients</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+        </li>
+         
+        <form class="form-inline my-2 my-lg-0" style="position:absolute; right: 25px;" method="GET" action="search" >
+          <input class="form-control mr-sm-2" type="text"  placeholder="Search" id ="searchBar"  aria-label="Search">
+          <button class="btn btn-secondary my-2 my-sm-0"  type="submit">Search</button>
+        </form>
+         
+        {% else %}
+      
+         <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('login') }}">Log_in</a>
+         </li>
+         <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('register') }}">Register</a>
+         </li>
+
+        {% endif %}
+      </ul>
+      
+      <script>
+        function myFunction() {
+          var x = document.getElementById("navbarColor01");
+          if (x.style.display === "block") {
+            x.style.display = "none";
+          } else {
+            x.style.display = "block";
+          }
+        }
+      </script>
+      
+    </div>
+  </nav>
+
+
+
+  <div class = "container">
+     {% block body %}
+     
+     {% endblock %}
+  </div>
+  </body>
+</html>
