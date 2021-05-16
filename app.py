@@ -117,6 +117,11 @@ class RegisterForm(FlaskForm):
     password = PasswordField('Password', validators=[InputRequired(), Length(min=6, max=20), EqualTo('confirm', message='Oups!Wrong password')])
     confirm = PasswordField('Confirm Password', validators=[InputRequired(), Length(min=6, max=20)])
 
+class EditForm(FlaskForm):
+    email = StringField('Email', validators=[InputRequired(), Length(max=25), Email()])
+    username = StringField('Username', validators=[InputRequired(), Length(min=4, max=20)])
+    submit = SubmitField('Submit')
+
 class NewclientForm(FlaskForm):
     first_name = StringField('First Name', validators=[InputRequired(), Length(max=20)])
     last_name = StringField('Last Name', validators=[InputRequired(), Length(max=20)])
@@ -295,8 +300,23 @@ def edit_client(id):
     return render_template('edit_client.html', form=form)
 
 # EDIT USER
+@app.route('/edit_user/<id>', methods=['GET', 'POST'])
+@login_required
+def edit_user(id):
+    user = User.query.filter_by(id=id).first_or_404()
+    form = EditForm(formdata = request.form, obj = user)
 
+    if form.validate_on_submit():
+        user.email = form.email.data
+        user.username = form.username.data
+        db.session.commit()
+        return redirect(url_for('list_users'))
+    elif request.method == 'GET':
+        form.email.data = user.email
+        form.username.data = user.username
 
+    return render_template('edit_user.html', form = form)
+    
 # DELETE CLIENT
 @app.route('/delete_client/<id>', methods=['GET','POST'])
 @login_required
